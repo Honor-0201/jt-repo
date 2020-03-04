@@ -1,0 +1,40 @@
+server:
+  port: 8094
+  servlet:
+    context-path: / #项目发布路径
+spring:
+  datasource:
+        #引入druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.160.1:3306/jtdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: root
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+#mybatis-plush配置
+mybatis-plus:
+  type-aliases-package: com.jt.pojo
+  mapper-locations: classpath:/mybatis/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level: 
+    com.jt.mapper: debug
+    
+dubbo:
+  scan:
+    basePackages: com.jt #dubbo定义包扫描
+  application:
+    name: provider-cart  #定义服务的名称  必须添加 提供一样的服务 名称必须一样 通过 port区分
+  registry:
+    address: zookeeper://192.168.160.128:2181?backup=192.168.160.128:2182,192.168.160.128:2183
+  protocol: 
+    name: dubbo  #协议 使用dubbo默认的协议
+    port: 20881  #端口号唯一    
+    
+    
+    
